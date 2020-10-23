@@ -1,0 +1,15 @@
+array{
+  'airline': 'AA',
+  'flightNumber': '123',
+  'bookingClass': 'C',
+  'mealOptions': array<array{
+    'types': array<'DINNER' | 'BRUNCH'>,
+    'cabinClasses': array<'BUSINESS' | 'FIRST' | 'ECONOMY', boolean>,
+    'flags': array{
+      'isVegetarian': boolean,
+      'isKosher': boolean,
+      'hasLactose': boolean
+    }
+  }>,
+  'aircraft': string
+}
