@@ -1,1 +1,19 @@
-SELECT * FROM customers;
+
+SELECT * FROM olol_table_345345_adasd ;
+
+SELECT *   
+ FROM  _sometableName 
+    WHERE    TRUE;
+
+SELECT * FROM SomeTable
+WHERE false Or True AND FALSE;
+
+SELECT * FROM SomeTable
+WHERE FALSE OR false Or True AND FALSE;
+
+
+SELECT * FROM SomeTable
+WHERE TRUE AND (FALSE OR false Or True AND NoT ( FalsE oR tRUe ) );
+
+SELECT * FROM customersasdasd_3 WHERE TRUE GROUP BY huj;
+

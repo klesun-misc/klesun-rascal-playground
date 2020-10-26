@@ -1,13 +1,40 @@
 module klesun_sql_sdf
 
 exports
-sorts SqlSelect
+sorts BoolExpr
 
 context-free syntax
-  "*" -> SelectFieldList
-  "SELECT " SelectFieldList " FROM customers;" -> SqlSelect
+  [\ \t\n\r]                         -> Ws
+  "*"                                -> SelectFieldList
+  [\_a-zA-Z][\_a-zA-Z0-9]*           -> IdentifierName
+  Ws+ [Oo][Rr]     Ws+               -> OpOr
+  Ws+ [Aa][Nn][Dd] Ws+               -> OpAnd
 
+  [Tt][Rr][Uu][Ee]                   -> BoolExpr
+  [Ff][Aa][Ll][Ss][Ee]               -> BoolExpr
+
+  BoolExpr OpAnd BoolExpr            -> BoolExpr {left}
+  BoolExpr OpOr  BoolExpr            -> BoolExpr {left}
+  "(" Ws* BoolExpr Ws* ")"           -> BoolExpr
+  [Nn][Oo][Tt] Ws+ BoolExpr          -> BoolExpr
+
+  "GROUP BY" Ws+ IdentifierName      -> GroupClause %% TODO: implement
+  "ORDER BY" Ws+ IdentifierName      -> OrderClause %% TODO: implement
+
+  Ws* 
+    "SELECT" Ws+ SelectFieldList Ws+
+    "FROM" Ws+ IdentifierName
+    (Ws+ "WHERE" Ws+ BoolExpr)?
+    (Ws+ GroupClause)?
+    (Ws+ OrderClause)?
+  Ws*                                -> SqlSelect
+
+  SqlSelect (";" SqlSelect)* ";" Ws* -> SqlSelectList
+
+context-free priorities
+  BoolExpr OpAnd BoolExpr -> BoolExpr >
+  BoolExpr OpOr  BoolExpr -> BoolExpr
 
 hiddens
 context-free start-symbols
-  SqlSelect
+  SqlSelectList
