@@ -1,0 +1,13 @@
+module klesun_sql_sdf
+
+exports
+sorts SqlSelect
+
+context-free syntax
+  "*" -> SelectFieldList
+  "SELECT " SelectFieldList " FROM customers;" -> SqlSelect
+
+
+hiddens
+context-free start-symbols
+  SqlSelect
